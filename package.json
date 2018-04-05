@@ -1,0 +1,29 @@
+{
+  "name": "twitch-clipper",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Jarvis Prestidge <jarvis@truelayer.com>",
+  "license": "MIT",
+  "scripts": {
+    "clean": "rm -rf dist",
+    "build": "npm run clean && tsc -p .",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "dotenv": "^5.0.1",
+    "knex": "^0.14.4",
+    "pg": "^7.4.1",
+    "request": "^2.85.0",
+    "request-promise-native": "^1.0.5"
+  },
+  "devDependencies": {
+    "@types/dotenv": "^4.0.2",
+    "@types/knex": "^0.14.9",
+    "@types/pg": "^7.4.5",
+    "@types/request": "^2.47.0",
+    "@types/request-promise-native": "^1.0.14",
+    "tslint": "^5.9.1",
+    "tslint-config-prettier": "^1.10.0",
+    "typescript": "^2.8.1"
+  }
+}
