@@ -2,9 +2,9 @@
  * Represents reddit's OAuth response structure
  *
  * @export
- * @interface IRedditAuth
+ * @interface IRedditAuthResponse
  */
-export interface IRedditAuth {
+export interface IRedditAuthResponse {
     access_token: string;
     token_type: string;
     expires_in: number;

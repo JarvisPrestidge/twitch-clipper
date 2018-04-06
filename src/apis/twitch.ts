@@ -1,4 +1,5 @@
-import { genericRequest, IHeaders, IQueryStrings } from "../utils/network";
+import * as request from "request-promise-native";
+import { Headers, Options } from "request";
 import { ITwitchClip } from "../interfaces/ITwitchClip";
 
 /**
@@ -15,29 +16,35 @@ class Twitch {
         const uri = `${this.baseUri}/clips/top`;
 
         const channel = process.env.TWITCH_CHANNEL;  
-        if (!channel) {
-            throw new Error("Invalid twitch channel environment variable");
-        }
-
-        const qs: IQueryStrings = { 
-            channel,
-            limit
-        };
-
         const clientId = process.env.TWITCH_CLIENT_ID;  
-        if (!channel) {
+
+        if (!channel || !clientId) {
             throw new Error("Invalid twitch channel environment variable");
         }
 
-        const headers: IHeaders = { 
+        const headers: Headers = { 
             "Accept": "application/vnd.twitchtv.v5+json",
             "Client-ID": clientId
         };
 
-        let response;
+        const qs: any = { 
+            channel,
+            limit
+        };
+
+        const options: Options = {
+            uri,
+            method: "GET",
+            headers,
+            qs,
+            gzip: true,
+            json: true
+        };
+
+        let response: { clips: ITwitchClip[] };
 
         try {
-            response = await genericRequest<{ clips: ITwitchClip[] }>(uri, "GET", qs, headers);
+            response = await request(options);
         } catch (err) {
             throw new Error(`Failed to retrieve top clips: ${err.message}`);
         }
