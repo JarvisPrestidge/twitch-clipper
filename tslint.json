@@ -10,6 +10,7 @@
         "object-literal-sort-keys": false,
         "ordered-imports": false,
         "trailing-comma": false,
-        "member-ordering": false
+        "member-ordering": false,
+        "no-duplicate-imports": false
     }
 }

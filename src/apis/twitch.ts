@@ -9,9 +9,9 @@ import { ITwitchClip } from "../interfaces/ITwitchClip";
  */
 class Twitch {
 
-    private readonly baseUri = "https://api.twitch.tv/kraken";
+    private static readonly baseUri = "https://api.twitch.tv/kraken";
 
-    public async getTopClips(limit = 1): Promise<ITwitchClip[]> {
+    public static async getTopClips(limit = 1): Promise<ITwitchClip[]> {
 
         const uri = `${this.baseUri}/clips/top`;
 
@@ -29,7 +29,8 @@ class Twitch {
 
         const qs: any = { 
             channel,
-            limit
+            limit,
+            period: "day"
         };
 
         const options: Options = {
@@ -38,7 +39,8 @@ class Twitch {
             headers,
             qs,
             gzip: true,
-            json: true
+            json: true,
+            
         };
 
         let response: { clips: ITwitchClip[] };

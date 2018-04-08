@@ -77,7 +77,7 @@ class Reddit {
      * 
      * @returns {Promise<string>} 
      */
-    public async submitPost(title: string, url: string): Promise<string> {
+    public async submitPost(title: string, url: string, sr: string): Promise<string | undefined> {
 
         // Request new access token if invalid
         if (!this.accessToken || !this.accessTokenExpiry || this.accessTokenExpiry.isAfter()) {
@@ -95,7 +95,7 @@ class Reddit {
         const form: any = {
             title,
             url,
-            sr: "fortnitebr",
+            sr,
             kind: "link"
         };
 
@@ -118,10 +118,11 @@ class Reddit {
 
         if (!response.success) {
             console.error("Reddit submission failed.")
+            return undefined;
         }
 
         // Value for newly created posts comments page.
-        return response.jquery[18][3][0];
+        return response.jquery[16][3][0];
     }
 }
 
